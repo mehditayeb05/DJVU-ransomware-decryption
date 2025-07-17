@@ -1,0 +1,7 @@
+Ceci est un fichier de test utilisé dans le cadre d’une simulation pédagogique de ransomware STOP Djvu.
+
+L’objectif est de démontrer comment le chiffrement AES-CTR fonctionne avec un footer simulé.
+
+Aucune donnée réelle n’est compromise.
+
+— Simulation éducative en cybersécurité —

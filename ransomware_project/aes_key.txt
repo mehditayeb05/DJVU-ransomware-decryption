@@ -1,0 +1,70 @@
+6.	Simulation Pédagogique du Ransomware STOP/DJVU
+Pourquoi cette Simulation ?
+Face à la complexité croissante des ransomwares comme STOP/DJVU, j'ai décidé de créer une simulation pédagogique pour :
+•	Comprendre en profondeur les mécanismes de chiffrement/déchiffrement
+•	Expérimenter sans risque les techniques utilisées par les cybercriminels
+•	Développer des compétences pratiques en analyse de malware
+•	Préparer des défenses efficaces contre ce type de menace
+Création du Simulateur (fake_rans.py)
+Ce script simule le comportement d’un ransomware de la famille STOP/Djvu, largement répandu. Il chiffre les fichiers d’un dossier en utilisant l’algorithme AES en mode CTR (Counter), puis ajoute un footer simulé contenant des métadonnées comme une signature factice (b'djvus'), une clé chiffrée et un identifiant machine. Enfin, les fichiers sont renommés avec une extension fictive. zzla, et une note de rançon éducative est générée.
+Fonctionnalités principales :
+•	Génération d’une clé AES aléatoire (256 bits) pour le chiffrement.
+•	Chiffrement de fichiers en mode AES-CTR avec un nonce de 8 octets (comme utilisé dans le vrai ransomware).
+ 
+•	Ajout d’un footer contenant :
+o	Une signature fictive (b'djvus')
+o	Une "clé chiffrée" simulée
+o	Un identifiant machine simulé (32 octets)
+ 
+•	Renommage des fichiers avec l’extension .zzla pour simuler l’infection.
+•	Création d’un fichier README.txt pour simuler une fausse note de rançon.
+•	Sauvegarde de la clé AES dans un fichier texte (utile pour la phase de déchiffrement).
+ 
+Interface graphique de déchiffrement
+Le second script est une interface graphique en Python (Tkinter) permettant à l’utilisateur de déchiffrer les fichiers .zzla précédemment chiffrés. L’utilisateur doit fournir la clé AES originale au format hexadécimal.
+Fonctionnalités principales :
+•	Interface simple et intuitive avec :
+o	Saisie de la clé AES
+o	Sélection du dossier contenant les fichiers .zzla
+o	Bouton de déchiffrement
+o	Affichage des résultats dans une console intégrée
+•	Extraction du nonce et des données chiffrées à partir de chaque fichier .zzla
+•	Déchiffrement avec AES-CTR pour reconstituer le fichier original
+ 
+•	Suppression du footer simulé lors de la récupération du contenu initial
+•	Log des opérations réussies ou échouées avec messages d’erreur clairs
+ 
+Vue de l'application graphique de déchiffrement :
+ 
+
+
+Afin de tester concrètement le fonctionnement de la simulation, j'ai créé un répertoire nommé test_directory contenant trois fichiers exemples. Ce dossier a servi de terrain d'expérimentation pour observer le processus complet de chiffrement puis de déchiffrement à l’aide des scripts précédemment développés.
+ 
+
+
+Les fichiers de test (.jpg, .pdf, et .txt)
+ 
+Chiffrement des fichiers 
+Le script de chiffrement a parcouru tous les fichiers du répertoire test_directory et a appliqué un chiffrement AES-CTR sur chaque fichier avec une clé AES générée aléatoirement. Après le chiffrement, un footer simulé a été ajouté à chaque fichier, contenant une fausse signature (djvus), une clé simulée chiffrée, et un identifiant aléatoire. Tous les fichiers ont ensuite été renommés avec l'extension .zzla, simulant ainsi un comportement typique des ransomwares comme STOP Djvu.
+Apres le lancement de script 
+
+ 
+
+Création automatique de la note de rançon 
+Une fois le chiffrement effectué, une note de rançon nommée README.txt a été générée automatiquement. Cette note contient un message pédagogique expliquant que le chiffrement est simulé à des fins éducatives. Elle inclut également un faux identifiant unique encodé en base64 et un contact fictif pour renforcer l'illusion d'un ransomware actif.
+ 
+Test de Déchiffrement via l'Interface Graphique
+Une fois les fichiers chiffrés et la note de rançon créée, j'ai utilisé l'interface graphique développée avec Tkinter pour tester le processus de déchiffrement. Cette interface permet à l'utilisateur de fournir la clé AES (au format hexadécimal) utilisée lors du chiffrement, et de déchiffrer les fichiers .zzla en suivant ces étapes :
+•	Saisie de la clé AES : L'utilisateur entre la clé AES en hexadécimal dans un champ de texte prévu à cet effet.
+•	Sélection du dossier de fichiers à déchiffrer : L'utilisateur choisit le répertoire test_directory contenant les fichiers .zzla à déchiffrer.
+ 
+•	Lancement du déchiffrement : En cliquant sur le bouton “Déchiffrer”, l'application extrait le nonce (premiers 8 octets) et les données chiffrées des fichiers .zzla. Le processus de déchiffrement est effectué en utilisant la clé AES fournie, avec le même mode CTR que lors du chiffrement.
+•	Récupération des données originales : Une fois déchiffrées, les données sont restaurées dans leur format d’origine et écrites dans un fichier sans l'extension .zzla, le footer (avec la fausse signature et les autres informations) est ignoré et non inclus dans le fi-chier déchiffré.
+ 
+•	Log des opérations : Tous les fichiers traités sont enregistrés dans une console intégrée, indiquant si le déchiffrement a réussi ou échoué, avec des messages d'erreur clairs en cas de problème (par exemple, si la clé est incorrecte ou si le fichier n'est pas valide).
+Résultats et Validation
+Le test a permis de valider que l'interface fonctionne correctement :
+•	Les fichiers .zzla ont été déchiffrés avec succès lorsque la clé correcte était fournie.
+•	Les fichiers originaux ont été restaurés sans erreur, et le footer simulé a bien été ignoré.
+•	L'interface graphique a montré des messages détaillés sur chaque fichier traité, confir-mant que le processus de déchiffrement s'était déroulé sans accrocs.
+ 
